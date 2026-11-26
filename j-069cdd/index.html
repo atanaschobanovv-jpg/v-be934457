@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Your Instagram Audit, Justin</title>
+<meta property="og:title" content="Your Instagram Audit, Justin">
+<meta property="og:description" content="A short video walkthrough: your profile, 3 accounts in your niche, and the plan.">
+<meta property="og:image" content="https://atanaschobanovv-jpg.github.io/v-be934457/j-069cdd/poster.jpg">
+<meta property="og:type" content="video.other">
+<style>
+  :root { --bg:#0b0b0d; --card:#151519; --line:#26262d; --text:#f3f1ec; --mute:#9a978f; --accent:#e8c26a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
+  body { min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:clamp(20px,5vw,56px) 16px 48px; }
+  .wrap { width:100%; max-width:1080px; }
+  .brand { font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--mute); }
+  .brand b { color:var(--accent); font-weight:600; }
+  h1 { font-size:clamp(28px,5vw,46px); line-height:1.08; letter-spacing:-.02em; margin:14px 0 10px; font-weight:700; }
+  .sub { color:var(--mute); font-size:clamp(15px,2vw,18px); line-height:1.5; max-width:640px; }
+  .player { margin:28px 0 22px; border-radius:16px; overflow:hidden; background:#000; border:1px solid var(--line); box-shadow:0 30px 80px rgba(0,0,0,.55); aspect-ratio:16/9; }
+  video { width:100%; height:100%; display:block; background:#000; }
+  .tips { display:flex; flex-wrap:wrap; gap:10px; }
+  .chip { font-size:13px; color:var(--mute); border:1px solid var(--line); border-radius:999px; padding:7px 13px; }
+  .cta { margin-top:34px; padding:24px; border-radius:16px; background:var(--card); border:1px solid var(--line); }
+  .cta h2 { font-size:20px; margin-bottom:6px; }
+  .cta p { color:var(--mute); line-height:1.55; }
+  footer { margin-top:40px; color:#5d5b56; font-size:12px; }
+  /* in-app browser gate */
+  #gate { position:fixed; inset:0; z-index:10; background:var(--bg); display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:28px; gap:16px; }
+  #gate.on { display:flex; }
+  #gate h2 { font-size:24px; line-height:1.2; max-width:340px; }
+  #gate p { color:var(--mute); line-height:1.5; max-width:330px; font-size:15px; }
+  .btn { display:block; width:100%; max-width:320px; padding:16px 20px; border-radius:14px; font-weight:600; font-size:16px; text-decoration:none; text-align:center; border:0; cursor:pointer; }
+  .btn.main { background:var(--accent); color:#151107; }
+  .btn.alt { background:transparent; color:var(--text); border:1px solid var(--line); }
+  .link { color:var(--mute); font-size:14px; text-decoration:underline; background:none; border:0; margin-top:6px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div id="gate" role="dialog" aria-label="Open in your browser">
+  <div class="brand"><b>Ace Cole</b> · Private audit</div>
+  <h2>Watch this in your browser</h2>
+  <p>The Instagram viewer can cut the video off. Open it in Chrome to watch the full audit in HD.</p>
+  <a class="btn main" id="openChrome" href="#">Open in Chrome</a>
+  <a class="btn alt" id="openSafari" href="#" hidden>Open in Safari</a>
+  <button class="link" id="stay">Watch here instead</button>
+</div>
+
+<main class="wrap">
+  <div class="brand"><b>Ace Cole</b> · Private audit for Dr. Justin Brown</div>
+  <h1>Your Instagram audit</h1>
+  <p class="sub">Your profile, the winner you already have, three accounts that are winning in your niche, and the plan. About 8 minutes.</p>
+
+  <div class="player">
+    <video id="v" controls playsinline preload="metadata" poster="poster.jpg">
+      <source src="audit.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="tips">
+    <span class="chip">1 · Your profile</span>
+    <span class="chip">2 · Your winner</span>
+    <span class="chip">3 · Three accounts in your niche</span>
+    <span class="chip">4 · The plan</span>
+  </div>
+
+  <section class="cta">
+    <h2>Liked what you saw?</h2>
+    <p>Just reply to my message on Instagram and we'll find a time for a quick call.</p>
+  </section>
+
+  <footer>This page is private and only reachable with its link.</footer>
+</main>
+
+<script>
+(function () {
+  var ua = navigator.userAgent || "";
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Messenger|Threads|TikTok|musical_ly|Snapchat|Line\//i.test(ua);
+  var android = /Android/i.test(ua);
+  var ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (!inApp || (!android && !ios)) return;
+
+  var url = location.href.split("#")[0];
+  var bare = url.replace(/^https?:\/\//, "");
+  var gate = document.getElementById("gate");
+  var chrome = document.getElementById("openChrome");
+  var safari = document.getElementById("openSafari");
+
+  if (android) {
+    chrome.href = "intent://" + bare + "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" + encodeURIComponent(url) + ";end";
+  } else {
+    chrome.href = "googlechromes://" + bare;
+    safari.href = "x-safari-" + url;
+    safari.hidden = false;
+  }
+  gate.classList.add("on");
+  document.getElementById("stay").onclick = function () { gate.classList.remove("on"); };
+
+  // Try the jump straight away; the buttons stay as the fallback if the app blocks it.
+  setTimeout(function () { location.href = chrome.href; }, 350);
+})();
+</script>
+</body>
+</html>
