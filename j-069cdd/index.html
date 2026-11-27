@@ -103,5 +103,25 @@
   setTimeout(function () { location.href = chrome.href; }, 350);
 })();
 </script>
+<script>
+// Stats (GoatCounter, no cookies): page view + video play and progress events.
+(function () {
+  var v = document.getElementById("v"), sent = {};
+  function ev(name) {
+    if (sent[name]) return; sent[name] = 1;
+    var send = function () { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: "justin-" + name, title: name, event: true }); };
+    window.goatcounter && window.goatcounter.count ? send() : setTimeout(send, 1500);
+  }
+  v.addEventListener("play", function () { ev("play"); });
+  v.addEventListener("timeupdate", function () {
+    if (!v.duration) return;
+    var p = v.currentTime / v.duration;
+    [25, 50, 75, 95].forEach(function (q) { if (p >= q / 100) ev("watched-" + q); });
+  });
+  document.getElementById("stay").addEventListener("click", function () { ev("stayed-in-app"); });
+  ["openChrome", "openSafari"].forEach(function (id) { document.getElementById(id).addEventListener("click", function () { ev("tap-" + id); }); });
+})();
+</script>
+<script data-goatcounter="https://acecole.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
